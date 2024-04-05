@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -29,7 +29,7 @@ func main() {
 			return fmt.Errorf("must only be a single path element name")
 		}
 
-		b, err := ioutil.ReadAll(c.Request().Body)
+		b, err := io.ReadAll(c.Request().Body)
 		if err != nil {
 			return err
 		}
