@@ -23,6 +23,17 @@ func main() {
 
 		return c.File(filepath.Join(dir, cid))
 	})
+	e.HEAD("/:cid", func(c echo.Context) error {
+		cid := c.Param("cid")
+
+		fp := filepath.Join(dir, cid)
+		_, err := os.Stat(fp)
+		if err == nil {
+			return c.JSON(200, "ok")
+		}
+
+		return c.JSON(404, "missing")
+	})
 	e.POST("/:cid", func(c echo.Context) error {
 		cid := c.Param("cid")
 		if strings.Contains(cid, "/") {
